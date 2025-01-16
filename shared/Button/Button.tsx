@@ -1,4 +1,4 @@
-import { Pressable, PressableProps, Text, StyleSheet, View, Animated } from "react-native";
+import { Pressable, PressableProps, Text, StyleSheet, View, Animated, GestureResponderEvent } from "react-native";
 import { Colors, Fonts, Radius } from "../tokens";
 import { useState } from "react";
 
@@ -7,24 +7,39 @@ interface ButtonProps extends PressableProps {
 }
 
 export const Button = (props: ButtonProps) => {
-    const animatedValue = new Animated.ValueXY({
-        x: 0,
-        y: 0,
+    const animatedValue = new Animated.Value(100);
+    const color = animatedValue.interpolate({
+        inputRange: [0, 100],
+        outputRange: [Colors.primaryHover, Colors.primary],
     });
-    Animated.timing(animatedValue, {
-        toValue: {
-            x: 100,
-            y: 100,
-        },
-        duration: 2000,
-        useNativeDriver: true,
-    }).start();
+
+    const fadeIn = (event: GestureResponderEvent) => {
+        Animated.timing(animatedValue, {
+            toValue: 0,
+            duration: 100,
+            useNativeDriver: true,
+        }).start();
+        props.onPressIn && props.onPressIn(event);
+    };
+    const fadeOut = (event: GestureResponderEvent) => {
+        Animated.timing(animatedValue, {
+            toValue: 100,
+            duration: 100,
+            useNativeDriver: true,
+        }).start();
+        props.onPressOut && props.onPressOut(event);
+    };
+
     return (
-        <Pressable {...props}>
+        <Pressable
+            onPressIn={fadeIn}
+            onPressOut={fadeOut}
+            {...props}
+        >
             <Animated.View
                 style={{
                     ...styles.button,
-                    transform: [{ translateX: animatedValue.x }, { translateY: animatedValue.y }],
+                    backgroundColor: color,
                 }}
             >
                 <Text style={styles.text}>{props.text}</Text>
@@ -38,7 +53,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         height: 58,
-        backgroundColor: Colors.primary,
 
         borderRadius: Radius.r10,
     },
