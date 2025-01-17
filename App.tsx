@@ -1,13 +1,23 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Alert, Platform, ToastAndroid, Animated } from "react-native";
 import { Input } from "./shared/Input/Input";
 import { Colors, Gaps } from "./shared/tokens";
-import EyeClosed from "./assets/icons/eye-closed";
-import EyeOpened from "./assets/icons/eye-opened";
 import { Button } from "./shared/Button/Button";
+import { ErrorNotification } from "./shared/ErrorNotification/ErrorNotification";
+import { useState } from "react";
 
 export default function App() {
+    const [error, setError] = useState<string | undefined>();
+
+    const alert = () => {
+        // Alert.alert
+        setError("Неверный логин или пароль");
+        setTimeout(() => {
+            setError(undefined);
+        }, 4000);
+    };
     return (
         <View style={styles.container}>
+            <ErrorNotification error={error} />
             <View style={styles.content}>
                 <Image
                     resizeMode={"contain"}
@@ -23,7 +33,10 @@ export default function App() {
                         placeholder='password'
                     />
 
-                    <Button text='Войти' />
+                    <Button
+                        text='Войти'
+                        onPress={alert}
+                    />
                 </View>
                 <Text>Восстановить пароль</Text>
             </View>

@@ -17,7 +17,7 @@ export const Button = (props: ButtonProps) => {
         Animated.timing(animatedValue, {
             toValue: 0,
             duration: 100,
-            useNativeDriver: true,
+            useNativeDriver: false,
         }).start();
         props.onPressIn && props.onPressIn(event);
     };
@@ -25,7 +25,7 @@ export const Button = (props: ButtonProps) => {
         Animated.timing(animatedValue, {
             toValue: 100,
             duration: 100,
-            useNativeDriver: true,
+            useNativeDriver: false,
         }).start();
         props.onPressOut && props.onPressOut(event);
     };

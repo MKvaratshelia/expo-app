@@ -5,7 +5,8 @@ gray: '#AFB2BF',
 primary: '#6C38CC',
 links: '#A97BFF',
 primaryHover: '#452481',
-violetDark: '#2E2D3D'
+violetDark: '#2E2D3D',
+red: '#CC384E'
 }
 
 export const Gaps ={
