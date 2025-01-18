@@ -1,3 +1,3 @@
 export interface ErrorNatificationProps {
-    error?: string;
+	error?: string;
 }
