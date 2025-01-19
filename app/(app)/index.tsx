@@ -1,10 +1,14 @@
 import { Text, View } from 'react-native';
-import { Colors } from '../../shared/tokens';
+import { Button } from '../../shared/Button/Button';
+import { useSetAtom } from 'jotai';
+import { logoutAtom } from '../../entities/auth/model/auth.state';
 
 export default function MyCourses() {
+	const logout = useSetAtom(logoutAtom);
 	return (
 		<View>
-			<Text style={{ color: Colors.white }}>Главная</Text>
+			<Text>{'index'}</Text>
+			<Button text="Выход" onPress={logout} />
 		</View>
 	);
 }

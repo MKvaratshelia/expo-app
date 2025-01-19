@@ -1,8 +1,17 @@
-import { Pressable, PressableProps, Text, StyleSheet, Animated, GestureResponderEvent } from 'react-native';
+import {
+	Pressable,
+	PressableProps,
+	Text,
+	StyleSheet,
+	Animated,
+	GestureResponderEvent,
+	ActivityIndicator,
+} from 'react-native';
 import { Colors, Fonts, Radius } from '../tokens';
 
 interface ButtonProps extends PressableProps {
 	text: string;
+	isLoading?: boolean;
 }
 
 export const Button = (props: ButtonProps) => {
@@ -39,7 +48,8 @@ export const Button = (props: ButtonProps) => {
 					backgroundColor: color,
 				}}
 			>
-				<Text style={styles.text}>{props.text}</Text>
+				{!props.isLoading && <Text style={styles.text}>{props.text}</Text>}
+				{props.isLoading && <ActivityIndicator size={'large'} color={Colors.white} />}
 			</Animated.View>
 		</Pressable>
 	);
