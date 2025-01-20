@@ -1,14 +1,17 @@
 import { Stack, SplashScreen } from 'expo-router';
 import { Colors } from '../shared/tokens';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import {
+	SafeAreaProvider,
+	//   useSafeAreaInsets
+} from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-	const insets = useSafeAreaInsets();
+	// const insets = useSafeAreaInsets();
 
 	const [loaded, error] = useFonts({
 		FiraSans: require('../assets/fonts/FiraSans-Regular.ttf'),
@@ -39,7 +42,7 @@ export default function RootLayout() {
 					statusBarBackgroundColor: Colors.black,
 					contentStyle: {
 						backgroundColor: Colors.black,
-						paddingTop: insets.top,
+						// paddingTop: insets.top,
 					},
 					headerShown: false,
 				}}

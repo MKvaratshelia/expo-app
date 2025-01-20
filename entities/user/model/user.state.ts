@@ -1,17 +1,55 @@
 import { atom } from 'jotai';
 import { User } from './user.model';
-
-export const profileAtom = atom<UserState>({
-	profile: {
-		id: 1,
-		name: 'Mihail',
-	},
-	isLoading: false,
-	error: null,
-});
+import { authAtom } from '../../auth/model/auth.state';
+import axios, { AxiosError } from 'axios';
+import { API } from '../api/api';
 
 export interface UserState {
 	profile: User | null;
 	isLoading: boolean;
 	error: string | null;
 }
+interface UserRequest {
+	profile: User;
+}
+
+export const profileAtom = atom<UserState>({
+	profile: null,
+	isLoading: false,
+	error: null,
+});
+
+export const loadProfileAtom = atom(
+	async (get) => {
+		return get(profileAtom);
+	},
+	async (get, set) => {
+		const { access_token } = await get(authAtom);
+		set(profileAtom, {
+			isLoading: true,
+			profile: null,
+			error: null,
+		});
+		try {
+			const { data } = await axios.get<UserRequest>(API.profile, {
+				headers: {
+					Authorization: `Bearer ${access_token}`,
+				},
+			});
+
+			set(profileAtom, {
+				isLoading: false,
+				profile: data?.profile,
+				error: null,
+			});
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				set(profileAtom, {
+					isLoading: false,
+					profile: null,
+					error: error.response?.data.message,
+				});
+			}
+		}
+	},
+);

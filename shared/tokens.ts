@@ -7,6 +7,7 @@ export const Colors = {
 	primaryHover: '#452481',
 	violetDark: '#2E2D3D',
 	red: '#CC384E',
+	blackLight: '#1E1F29',
 };
 
 export const Gaps = {
@@ -22,6 +23,7 @@ export const Radius = {
 export const Fonts = {
 	f16: 16,
 	f18: 18,
+	f20: 20,
 	regular: 'FiraSans',
 	semiBold: 'FiraSansSemiBold',
 };
