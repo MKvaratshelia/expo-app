@@ -18,7 +18,9 @@ export const UserMenu = ({ user }: { user: User | null }) => {
 			) : (
 				<Image style={styles.avatar} source={require('../../../../assets/images/avatar.png')} />
 			)}
-			<Text style={styles.name}>{user.name}</Text>
+			<Text style={styles.name}>
+				{user.name} {user.surname}
+			</Text>
 		</View>
 	);
 };
@@ -28,6 +30,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		gap: Gaps.g10,
 		marginTop: 30,
+		marginBottom: 40,
 	},
 	avatar: {
 		width: 70,
