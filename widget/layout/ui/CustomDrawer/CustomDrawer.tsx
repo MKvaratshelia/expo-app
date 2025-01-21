@@ -4,13 +4,13 @@ import { Colors } from '../../../../shared/tokens';
 import { CustomLink } from '../../../../shared/Link/CustomLink';
 import { CloseDrawer } from '../../../../features/layout/ui/CloseDrawe/CloseDrawer';
 import { useAtom, useSetAtom } from 'jotai';
-import { logoutAtom } from '../../../auth/model/auth.state';
-import { loadProfileAtom } from '../../../user/model/user.state';
+import { logoutAtom } from '../../../../entities/auth/model/auth.state';
+import { loadProfileAtom } from '../../../../entities/user/model/user.state';
 import { useEffect } from 'react';
 import { UserMenu } from '../../../user/ui/UserMenu/UserMenu';
 import ProfileIcon from '../../../../assets/menu/profileIcon';
 import CoursesIcon from '../../../../assets/menu/coursesIcon';
-import { MenuItem } from '../MenuItem/MenuItem';
+import { MenuItem } from '../../../../entities/layout/ui/MenuItem/MenuItem';
 
 const MENU = [
 	{ text: 'Профиль', icon: <ProfileIcon />, path: 'profile' },

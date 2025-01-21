@@ -7,7 +7,8 @@ import { Drawer } from 'expo-router/drawer';
 import { Colors, Fonts } from '../../shared/tokens';
 
 import { MenuButton } from '../../features/layout/ui/MenuButton/MenuButton';
-import { CustomDrawer } from '../../entities/layout/ui/CustomDrawer/CustomDrawer';
+import { CustomDrawer } from '../../widget/layout/ui/CustomDrawer/CustomDrawer';
+import { StyleSheet } from 'react-native';
 SplashScreen.preventAutoHideAsync();
 
 export default function AppLoyout() {
@@ -18,7 +19,7 @@ export default function AppLoyout() {
 
 	return (
 		// eslint-disable-next-line react-native/no-inline-styles
-		<GestureHandlerRootView style={{ flex: 1 }}>
+		<GestureHandlerRootView style={styles.wrapper}>
 			<Drawer
 				drawerContent={(props) => <CustomDrawer {...props} />}
 				screenOptions={({ navigation }) => ({
@@ -55,9 +56,11 @@ export default function AppLoyout() {
 				/>
 			</Drawer>
 		</GestureHandlerRootView>
-
-		// <Stack>
-		// 	<Stack.Screen name="index" />
-		// </Stack>
 	);
 }
+
+const styles = StyleSheet.create({
+	wrapper: {
+		flex: 1,
+	},
+});
