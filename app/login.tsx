@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, Dimensions, KeyboardAvoidingView, Platform } from 'react-native';
 import { Input } from '../shared/Input/Input';
 import { Colors, Gaps } from '../shared/tokens';
 import { Button } from '../shared/Button/Button';
@@ -8,12 +8,16 @@ import { CustomLink } from '../shared/Link/CustomLink';
 import { useAtom } from 'jotai';
 import { loginAtom } from '../entities/auth/model/auth.state';
 import { router } from 'expo-router';
+import { useScreenOrientation } from '../shared/hooks';
+import { Orientation } from 'expo-screen-orientation';
 
 export default function App() {
 	const [errorLocal, setErrorLocal] = useState<string | undefined>();
 	const [email, setEmail] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const [{ access_token, isLoading, error }, login] = useAtom(loginAtom);
+
+	const orientation = useScreenOrientation();
 
 	const submit = () => {
 		if (!email) {
@@ -39,25 +43,37 @@ export default function App() {
 		}
 	}, [access_token]);
 
-	// const alert = () => {
-	// 	// Alert.alert
-	// 	setError('Неверный логин или пароль');
-
-	// 	setTimeout(() => {
-	// 		setError(undefined);
-	// 	}, 4000);
-	// };
-
 	return (
 		<View style={styles.container}>
 			<ErrorNotification error={errorLocal} />
-			<View style={styles.content}>
+			{/* Компонент не дает перекрывать клавиатурой поля ввода */}
+			<KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.content}>
 				<Image resizeMode={'contain'} style={styles.logo} source={require('../assets/logo.png')} />
 
 				<View style={styles.form}>
-					<Input placeholder="email" onChangeText={setEmail} />
+					<View
+						style={{
+							...styles.inputs,
+							flexDirection: orientation === Orientation.PORTRAIT_UP ? 'column' : 'row',
+						}}
+					>
+						<Input
+							style={{
+								width: orientation === Orientation.PORTRAIT_UP ? 'auto' : Dimensions.get('window').width / 2 - 16 - 48,
+							}}
+							placeholder="email"
+							onChangeText={setEmail}
+						/>
 
-					<Input isPassword placeholder="password" onChangeText={setPassword} />
+						<Input
+							style={{
+								width: orientation === Orientation.PORTRAIT_UP ? 'auto' : Dimensions.get('window').width / 2 - 16 - 48,
+							}}
+							isPassword
+							placeholder="password"
+							onChangeText={setPassword}
+						/>
+					</View>
 
 					<Button isLoading={isLoading} text="Войти" onPress={submit} />
 				</View>
@@ -65,7 +81,7 @@ export default function App() {
 				{/* <Link href={'/restores'}>
 					<Text style={styles.link}>Восстановить пароль</Text>
 				</Link> */}
-			</View>
+			</KeyboardAvoidingView>
 		</View>
 	);
 }
@@ -89,6 +105,9 @@ const styles = StyleSheet.create({
 	form: {
 		gap: Gaps.g16,
 		alignSelf: 'stretch',
+	},
+	inputs: {
+		gap: Gaps.g16,
 	},
 	// link: {
 	// 	fontSize: Fonts.f18,

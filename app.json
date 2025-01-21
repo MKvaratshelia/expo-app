@@ -4,7 +4,7 @@
     "slug": "expo-app",
     "backgroundColor": "#16171D",
     "version": "1.0.0",
-    "orientation": "portrait",
+    
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,

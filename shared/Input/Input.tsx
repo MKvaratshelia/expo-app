@@ -8,7 +8,7 @@ interface InputProps extends TextInputProps {
 	isPassword?: boolean;
 }
 
-export const Input = (props: InputProps) => {
+export const Input = ({ isPassword, style, ...props }: InputProps) => {
 	const [isPassworVisible, setIsPasswordVisible] = useState<boolean>(false);
 
 	const onPressHandler = () => {
@@ -16,14 +16,14 @@ export const Input = (props: InputProps) => {
 	};
 
 	return (
-		<View>
+		<View style={style}>
 			<TextInput
-				secureTextEntry={props.isPassword && !isPassworVisible}
+				secureTextEntry={isPassword && !isPassworVisible}
 				style={styles.input}
 				placeholderTextColor={Colors.gray}
 				{...props}
 			/>
-			{props.isPassword && (
+			{isPassword && (
 				<Pressable style={styles.eyeIcon} onPress={onPressHandler}>
 					{isPassworVisible ? <EyeOpenedIcon /> : <EyeClosedIcon />}
 				</Pressable>
@@ -33,15 +33,6 @@ export const Input = (props: InputProps) => {
 };
 
 const styles = StyleSheet.create({
-	// inputContainer: {
-	//     flexDirection: "row",
-	//     alignItems: "center",
-	//     paddingHorizontal: 25,
-	//     backgroundColor: Colors.violetDark,
-	//     height: 58,
-	//     borderRadius: Radius.r10,
-	//     justifyContent: "space-between",
-	// },
 	input: {
 		height: 58,
 		backgroundColor: Colors.violetDark,
