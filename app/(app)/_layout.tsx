@@ -9,6 +9,7 @@ import { Colors, Fonts } from '../../shared/tokens';
 import { MenuButton } from '../../features/layout/ui/MenuButton/MenuButton';
 import { CustomDrawer } from '../../widget/layout/ui/CustomDrawer/CustomDrawer';
 import { StyleSheet } from 'react-native';
+
 SplashScreen.preventAutoHideAsync();
 
 export default function AppLoyout() {

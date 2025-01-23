@@ -1,10 +1,16 @@
 {
   "expo": {
-    "name": "expo-app",
+    "name": "expo-app demo",
     "slug": "expo-app",
+    "description": "Приложение школы PurpleSchool для прохождения курсa",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "orientation": "portrait",
+    "primaryColor": "#6C38CC",
     "backgroundColor": "#16171D",
     "version": "1.0.0",
-    
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
@@ -13,14 +19,21 @@
       "resizeMode": "contain",
       "backgroundColor": "#16171D"
     },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "ru.purpleschool.purpleappdemo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,14 +42,36 @@
       "expo-router",
       [
         "expo-font",
-      {
-        "fonts": [
-          "./assets/fonts/FiraSans-Regular.ttf",
-          "./assets/fonts/FiraSans-SemiBold.ttf"
-        ]
-      }
+        {
+          "fonts": [
+            "./assets/fonts/FiraSans-Regular.ttf",
+            "./assets/fonts/FiraSans-SemiBold.ttf"
+          ]
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#16171D"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Необходимо разрешение для выбора фото профиля"
+        }
       ]
     ],
-    "scheme": "poorpleschool"
+    "scheme": "poorpleschool",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "317e3206-87ce-4885-8333-0c1a75303d87"
+      }
+    },
+    "owner": "kvaratshelia"
   }
 }
